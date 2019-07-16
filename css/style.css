@@ -21,6 +21,11 @@ body {
   width: 200px;
   background: blue;
 }
+.carousel-btn {
+  height: 50px;
+  width: 50px;
+  background: yellow;
+}
 .infoStats {
   height: 150px;
   width: 400px;
