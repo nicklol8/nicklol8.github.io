@@ -16,3 +16,13 @@ body {
   width: 450px;
   background: green;
 }
+.infoImage {
+  height: 200px;
+  width: 200px;
+  background: blue;
+}
+.infoStats {
+  height: 150px;
+  width: 400px;
+  background: deeppink;
+}
