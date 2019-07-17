@@ -38,6 +38,7 @@ $(() => {
         currentImageIndex = 0;
         event.preventDefault();
         $divImg.empty();
+        $divImgText.empty();
         $divInfo.empty();
         const $pokemon = Math.floor(Math.random() * 808);
         const endpoint = `https://pokeapi.co/api/v2/pokemon/${$pokemon}`;
@@ -46,26 +47,34 @@ $(() => {
 
     //putting it all together
     const $divImg = $('<div>').addClass('infoImage');
+    const $divImgText = $('<div>').addClass('infoImageText');
     const $divInfo = $('<div>').addClass('infoStats');
-    $form.append($input, $btnSearch, $btnRandom, $divImg, $divInfo);
+    $form.append(
+      $input,
+      $btnSearch,
+      $btnRandom,
+      $divImg,
+      $divImgText,
+      $divInfo
+    );
     $div.append($form);
     $container.append($div);
 
     // image carousel
     const handleDataInfo = data => {
       const $btnNext = $('<div>')
-        .addClass('carousel-btn')
+        .addClass('carousel-btnNext')
         .on('click', () => {
           if (currentImageIndex < highestIndex) {
+            $('.infoImageText').text($sprite[currentImageIndex + 1][1]);
             $sprite[currentImageIndex][0].replaceWith(
               $sprite[currentImageIndex + 1][0]
             );
-            // $sprite[currentImageIndex][1].replaceWith(
-            //   $sprite[currentImageIndex + 1][1]
-            // );
+            // console.log($sprite[currentImageIndex + 1][1]);
             currentImageIndex++;
-            console.log(currentImageIndex);
+            // console.log(currentImageIndex);
           } else {
+            $('.infoImageText').text($sprite[0][1]);
             $sprite[currentImageIndex][0].replaceWith($sprite[0][0]);
             currentImageIndex = 0;
           }
@@ -74,12 +83,14 @@ $(() => {
         .addClass('carousel-btn')
         .on('click', () => {
           if (currentImageIndex > 0) {
+            $('.infoImageText').text($sprite[currentImageIndex - 1][1]);
             $sprite[currentImageIndex][0].replaceWith(
               $sprite[currentImageIndex - 1][0]
             );
             currentImageIndex--;
             console.log(currentImageIndex);
           } else {
+            $('.infoImageText').text($sprite[highestIndex][1]);
             $sprite[currentImageIndex][0].replaceWith($sprite[highestIndex][0]);
             currentImageIndex = highestIndex;
           }
@@ -96,16 +107,20 @@ $(() => {
           //   console.log(images);
         }
       }
-      $sprite.reverse();
+      // $sprite.sort((b, a) => {
+      //   return a[1].split('_') - b[1].split('_');
+      // });
+      $sprite.split;
       highestIndex = $sprite.length - 1;
       $('.infoImage').append($btnNext);
       $('.infoImage').prepend($btnPrev);
-      $('.infoImage').append($sprite[0][0], $sprite[0][1]);
+      $('.infoImage').append($sprite[0][0]);
+      $('.infoImageText').append($sprite[0][1]);
 
       //adding types and info
       const $name = data.name.charAt(0).toUpperCase() + data.name.slice(1);
       let $type = ``;
-      for (i = data.types.length - 1; i >= 0; i--) {
+      for (let i = data.types.length - 1; i >= 0; i--) {
         if (i >= 1) {
           $type += ` ${data.types[i].type.name} /`;
         } else {
@@ -113,7 +128,7 @@ $(() => {
         }
       }
       const $info = `${$name}, the ${$type}
-       pokémon. Pokédex numbe: ${data.id}. `;
+       pokémon. Pokédex number: ${data.id}. `;
       $('.infoStats').append($info);
     };
   });

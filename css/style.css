@@ -21,10 +21,20 @@ body {
   width: 200px;
   background: blue;
 }
+.infoImageText {
+  height: 20px;
+  width: 100px;
+  background: burlywood;
+}
 .carousel-btn {
   height: 50px;
   width: 50px;
   background: yellow;
+}
+.carousel-btnNext {
+  height: 50px;
+  width: 50px;
+  background: aqua;
 }
 .infoStats {
   height: 150px;
