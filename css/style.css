@@ -20,6 +20,7 @@ body {
   justify-content: center;
   align-content: space-around;
   background: #dd0b2d;
+  border-radius: 20px;
 }
 .pokedex-camera {
   height: 30px;
@@ -50,6 +51,9 @@ body {
   position: absolute;
   margin: -30px 0 0 125px;
 }
+.underneath {
+  display: hidden;
+}
 .carousel-btnPrev {
   width: 0;
   height: 0;
@@ -65,7 +69,7 @@ body {
   border-left: 20px solid goldenrod;
 }
 .infoStats {
-  height: 150px;
+  height: 200px;
   width: 300px;
   background: green;
   border: 20px solid green;
@@ -76,11 +80,12 @@ body {
     width: 800px;
     display: flex;
     flex-wrap: wrap;
+    border-radius: 20px;
   }
   .info-top {
     height: 650px;
     width: 375px;
-    border-right: 20px solid darkred;
+    border-right: 10px solid darkred;
     /* display: flex;
     justify-content: center; */
   }
@@ -91,6 +96,7 @@ body {
     justify-content: center;
     align-content: center;
     flex-wrap: wrap;
+    border-left: 10px solid darkred;
   }
   .btn-info {
     margin: 0 0 100px 0;
@@ -116,5 +122,11 @@ body {
     border: 2px solid whitesmoke;
     /* position: absolute;
     margin: -60px 0 0 0; */
+  }
+  .underneath {
+    display: block;
+    background: white;
+    height: 150px;
+    width: 150px;
   }
 }

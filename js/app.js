@@ -53,9 +53,10 @@ $(() => {
     const $divTop = $('<div>').addClass('info-top');
     const $divImg = $('<div>').addClass('infoImage');
     const $divImgText = $('<div>').addClass('infoImageText');
+    const $divWideUnder = $('<div>').addClass('underneath');
     const $divBot = $('<div>').addClass('info-bot');
     const $divInfo = $('<div>').addClass('infoStats');
-    $divTop.append($circle, $divImg, $divImgText);
+    $divTop.append($circle, $divImg, $divImgText, $divWideUnder);
     $divBot.append($input, $btnSearch, $btnRandom, $divInfo);
     $form.append($divTop, $divBot);
     $div.append($form);
@@ -100,24 +101,83 @@ $(() => {
       // adding sprites
       const $sprite = [];
       for (let images in data.sprites) {
-        // console.log(images);
-        if (images === 'front_default') {
-          $sprite.unshift([
-            $('<img>')
-              .attr('src', data.sprites[images])
-              .addClass('pokePic'),
-            images
-          ]);
-        } else if (data.sprites[images] !== null) {
-          //   console.log(images);
-          $sprite.push([
-            $('<img>')
-              .attr('src', data.sprites[images])
-              .addClass('pokePic'),
-            images
-          ]);
+        if (data.sprites[images] !== null) {
+          if (images === 'front_default') {
+            $sprite.splice(0, 0, [
+              $('<img>')
+                .attr('src', data.sprites[images])
+                .addClass('pokePic'),
+              'Front'
+            ]);
+          } else if (images === 'back_default') {
+            $sprite.splice(1, 0, [
+              $('<img>')
+                .attr('src', data.sprites[images])
+                .addClass('pokePic'),
+              'Back'
+            ]);
+          } else if (images === 'front_shiny') {
+            $sprite.splice(2, 0, [
+              $('<img>')
+                .attr('src', data.sprites[images])
+                .addClass('pokePic'),
+              'Shiny Front'
+            ]);
+          } else if (images === 'back_shiny') {
+            $sprite.splice(3, 0, [
+              $('<img>')
+                .attr('src', data.sprites[images])
+                .addClass('pokePic'),
+              'Shiny Back'
+            ]);
+          } else if (images === 'front_female') {
+            $sprite.splice(4, 0, [
+              $('<img>')
+                .attr('src', data.sprites[images])
+                .addClass('pokePic'),
+              'Female Front'
+            ]);
+          } else if (images === 'back_female') {
+            $sprite.splice(5, 0, [
+              $('<img>')
+                .attr('src', data.sprites[images])
+                .addClass('pokePic'),
+              'Female Back'
+            ]);
+          } else if (images === 'front_shiny_female') {
+            $sprite.splice(6, 0, [
+              $('<img>')
+                .attr('src', data.sprites[images])
+                .addClass('pokePic'),
+              'Shiny Female Front'
+            ]);
+          } else if (images === 'back_shiny_female') {
+            $sprite.splice(7, 0, [
+              $('<img>')
+                .attr('src', data.sprites[images])
+                .addClass('pokePic'),
+              'Shiny Female Back'
+            ]);
+            // console.log(images);
+          }
+          // if (images === 'front_default') {
+          //   $sprite.unshift([
+          //     $('<img>')
+          //       .attr('src', data.sprites[images])
+          //       .addClass('pokePic'),
+          //     images
+          //   ]);
+          // } else if (data.sprites[images] !== null) {
+          //   //   console.log(images);
+          //   $sprite.push([
+          //     $('<img>')
+          //       .attr('src', data.sprites[images])
+          //       .addClass('pokePic'),
+          //     images
+          //   ]);
         }
       }
+      console.log($sprite);
 
       highestIndex = $sprite.length - 1;
       $('.infoImage').append($btnPrev);
@@ -141,6 +201,24 @@ $(() => {
       const $displayName = $('<h3>').text(`${$name}  #${data.id}`);
       const $displayType = $('<h4>').text(`Type: ${$type}`);
       $('.infoStats').append($displayName, $displayType);
+
+      const handleDataExtra = newData => {
+        const searchForFlavor = (key, array) => {
+          for (let i = 0; i < array.length; i++) {
+            if (array[i].language.name === key) {
+              return array[i];
+            }
+          }
+        };
+        const $flavorText = searchForFlavor('en', newData.flavor_text_entries);
+        // console.log($flavorText);
+        const flavorText = $('<p>').text($flavorText.flavor_text);
+        $('.infoStats').append(flavorText);
+      };
+      const nextpoint = `https://pokeapi.co/api/v2/pokemon-species/${
+        data.name
+      }`;
+      $.ajax({ url: nextpoint }).then(handleDataExtra);
     };
   });
 });
