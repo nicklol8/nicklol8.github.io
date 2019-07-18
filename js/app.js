@@ -1,4 +1,4 @@
-console.log('linked');
+// console.log('linked');
 $(() => {
   const $container = $('#container');
   let currentImageIndex = 0;
@@ -7,7 +7,8 @@ $(() => {
   // making the pokéinfo info display
   $('#btn-info').on('click', () => {
     $container.empty();
-    const $div = $('<div>').addClass('display');
+    const $div = $('<div>').addClass('pokedex');
+    const $circle = $('<div>').addClass('pokedex-camera');
     const $form = $('<form>').addClass('form');
     const $input = $('<input>')
       .attr('type', 'text')
@@ -18,13 +19,15 @@ $(() => {
       .addClass('info-btn')
       .text('Search')
       .on('click', event => {
-        event.preventDefault();
         currentImageIndex = 0;
+        event.preventDefault();
         $divImg.empty();
+        $divImgText.empty();
         $divInfo.empty();
         const $pokemon = $('#poke-search')
           .val()
           .toLowerCase();
+        $('#poke-search').val('');
         const endpoint = `https://pokeapi.co/api/v2/pokemon/${$pokemon}`;
         $.ajax({ url: endpoint }).then(handleDataInfo);
         console.log($pokemon);
@@ -32,7 +35,7 @@ $(() => {
 
     //random pokemon
     const $btnRandom = $('<button>')
-      .addClass('info=btn')
+      .addClass('info-btn')
       .text('Random')
       .on('click', () => {
         currentImageIndex = 0;
@@ -40,23 +43,21 @@ $(() => {
         $divImg.empty();
         $divImgText.empty();
         $divInfo.empty();
+        $('#poke-search').val('');
         const $pokemon = Math.floor(Math.random() * 808);
         const endpoint = `https://pokeapi.co/api/v2/pokemon/${$pokemon}`;
         $.ajax({ url: endpoint }).then(handleDataInfo);
       });
 
     //putting it all together
+    const $divTop = $('<div>').addClass('info-top');
     const $divImg = $('<div>').addClass('infoImage');
     const $divImgText = $('<div>').addClass('infoImageText');
+    const $divBot = $('<div>').addClass('info-bot');
     const $divInfo = $('<div>').addClass('infoStats');
-    $form.append(
-      $input,
-      $btnSearch,
-      $btnRandom,
-      $divImg,
-      $divImgText,
-      $divInfo
-    );
+    $divTop.append($circle, $divImg, $divImgText);
+    $divBot.append($input, $btnSearch, $btnRandom, $divInfo);
+    $form.append($divTop, $divBot);
     $div.append($form);
     $container.append($div);
 
@@ -80,7 +81,7 @@ $(() => {
           }
         });
       const $btnPrev = $('<div>')
-        .addClass('carousel-btn')
+        .addClass('carousel-btnPrev')
         .on('click', () => {
           if (currentImageIndex > 0) {
             $('.infoImageText').text($sprite[currentImageIndex - 1][1]);
@@ -99,37 +100,47 @@ $(() => {
       // adding sprites
       const $sprite = [];
       for (let images in data.sprites) {
-        // console.log(`${images} -> ${data.sprites[images]}`);
-        if (`${data.sprites[images]}` === 'null') {
-          images++;
-        } else {
-          $sprite.push([$('<img>').attr('src', data.sprites[images]), images]);
+        // console.log(images);
+        if (images === 'front_default') {
+          $sprite.unshift([
+            $('<img>')
+              .attr('src', data.sprites[images])
+              .addClass('pokePic'),
+            images
+          ]);
+        } else if (data.sprites[images] !== null) {
           //   console.log(images);
+          $sprite.push([
+            $('<img>')
+              .attr('src', data.sprites[images])
+              .addClass('pokePic'),
+            images
+          ]);
         }
       }
-      // $sprite.sort((b, a) => {
-      //   return a[1].split('_') - b[1].split('_');
-      // });
-      $sprite.split;
+
       highestIndex = $sprite.length - 1;
-      $('.infoImage').append($btnNext);
-      $('.infoImage').prepend($btnPrev);
+      $('.infoImage').append($btnPrev);
       $('.infoImage').append($sprite[0][0]);
+      $('.infoImage').append($btnNext);
       $('.infoImageText').append($sprite[0][1]);
 
       //adding types and info
+
       const $name = data.name.charAt(0).toUpperCase() + data.name.slice(1);
       let $type = ``;
       for (let i = data.types.length - 1; i >= 0; i--) {
         if (i >= 1) {
-          $type += ` ${data.types[i].type.name} /`;
+          $type += ` ${data.types[i].type.name.charAt(0).toUpperCase() +
+            data.types[i].type.name.slice(1)} /`;
         } else {
-          $type += ` ${data.types[i].type.name} `;
+          $type += ` ${data.types[i].type.name.charAt(0).toUpperCase() +
+            data.types[i].type.name.slice(1)} `;
         }
       }
-      const $info = `${$name}, the ${$type}
-       pokémon. Pokédex number: ${data.id}. `;
-      $('.infoStats').append($info);
+      const $displayName = $('<h3>').text(`${$name}  #${data.id}`);
+      const $displayType = $('<h4>').text(`Type: ${$type}`);
+      $('.infoStats').append($displayName, $displayType);
     };
   });
 });

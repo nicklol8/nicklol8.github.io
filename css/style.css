@@ -1,5 +1,6 @@
 body {
   background: orange;
+  font-family: Helvetica, sans-serif;
 }
 .button {
   background: red;
@@ -10,34 +11,110 @@ body {
   height: 500px;
   width: 500px;
   background: whitesmoke;
+  display: flex;
 }
-.form {
-  height: 100px;
-  width: 450px;
-  background: green;
+.pokedex {
+  height: 700px;
+  width: 500px;
+  display: flex;
+  justify-content: center;
+  align-content: space-around;
+  background: #dd0b2d;
+}
+.pokedex-camera {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  background: radial-gradient(white, skyblue);
+  margin: 10px 0;
+  border: 2px solid whitesmoke;
 }
 .infoImage {
-  height: 200px;
-  width: 200px;
-  background: blue;
+  height: 300px;
+  width: 300px;
+  background: lightblue;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 20px solid lightgray;
+  border-bottom: 40px solid lightgray;
+}
+.pokePic {
+  height: 250px;
+  width: 250px;
 }
 .infoImageText {
   height: 20px;
   width: 100px;
   background: burlywood;
+  position: absolute;
+  margin: -30px 0 0 125px;
 }
-.carousel-btn {
-  height: 50px;
-  width: 50px;
-  background: yellow;
+.carousel-btnPrev {
+  width: 0;
+  height: 0;
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+  border-right: 20px solid goldenrod;
 }
 .carousel-btnNext {
-  height: 50px;
-  width: 50px;
-  background: aqua;
+  width: 0;
+  height: 0;
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+  border-left: 20px solid goldenrod;
 }
 .infoStats {
   height: 150px;
-  width: 400px;
-  background: deeppink;
+  width: 300px;
+  background: green;
+  border: 20px solid green;
+}
+@media (min-width: 800px) {
+  .pokedex {
+    height: 650px;
+    width: 800px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .info-top {
+    height: 650px;
+    width: 375px;
+    border-right: 20px solid darkred;
+    /* display: flex;
+    justify-content: center; */
+  }
+  .info-bot {
+    height: 650px;
+    width: 375px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+  }
+  .btn-info {
+    margin: 0 0 100px 0;
+  }
+  .form {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-between;
+    align-items: center;
+  }
+  .infoStats {
+    height: 300px;
+    width: 300px;
+    background: green;
+    border: 20px solid green;
+  }
+  .pokedex-camera {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    background: radial-gradient(white, skyblue);
+    margin: 10px 0;
+    border: 2px solid whitesmoke;
+    /* position: absolute;
+    margin: -60px 0 0 0; */
+  }
 }
