@@ -1,6 +1,17 @@
+/*
+
+ALL THIS IS FOR POKEDEX
+
+*/
 body {
   background: orange;
   font-family: Helvetica, sans-serif;
+}
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  height: 100px;
+  width: 800px;
 }
 .button {
   background: red;
@@ -46,8 +57,7 @@ body {
 }
 .infoImageText {
   height: 20px;
-  width: 100px;
-  background: burlywood;
+  width: 200px;
   position: absolute;
   margin: -30px 0 0 125px;
 }
@@ -129,4 +139,14 @@ body {
     height: 150px;
     width: 150px;
   }
+}
+/*
+
+ALL THIS IS FOR WHOS THAT POKEMON
+
+*/
+.guessWho {
+  height: 600px;
+  width: 600px;
+  background: wheat;
 }

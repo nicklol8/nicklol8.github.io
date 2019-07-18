@@ -1,5 +1,8 @@
 // console.log('linked');
 $(() => {
+  //
+  // All for Pokedex
+  //
   const $container = $('#container');
   let currentImageIndex = 0;
   let highestIndex = 0;
@@ -124,14 +127,14 @@ $(() => {
               'Shiny Front'
             ]);
           } else if (images === 'back_shiny') {
-            $sprite.splice(3, 0, [
+            $sprite.splice(1, 0, [
               $('<img>')
                 .attr('src', data.sprites[images])
                 .addClass('pokePic'),
               'Shiny Back'
             ]);
           } else if (images === 'front_female') {
-            $sprite.splice(4, 0, [
+            $sprite.splice(3, 0, [
               $('<img>')
                 .attr('src', data.sprites[images])
                 .addClass('pokePic'),
@@ -160,21 +163,6 @@ $(() => {
             ]);
             // console.log(images);
           }
-          // if (images === 'front_default') {
-          //   $sprite.unshift([
-          //     $('<img>')
-          //       .attr('src', data.sprites[images])
-          //       .addClass('pokePic'),
-          //     images
-          //   ]);
-          // } else if (data.sprites[images] !== null) {
-          //   //   console.log(images);
-          //   $sprite.push([
-          //     $('<img>')
-          //       .attr('src', data.sprites[images])
-          //       .addClass('pokePic'),
-          //     images
-          //   ]);
         }
       }
       console.log($sprite);
@@ -220,5 +208,13 @@ $(() => {
       }`;
       $.ajax({ url: nextpoint }).then(handleDataExtra);
     };
+  });
+  //
+  // For Who's that pokemon?
+  //
+  $('#btn-who').on('click', () => {
+    $container.empty();
+    const $div = $('<div>').addClass('guessWho');
+    $container.append($div);
   });
 });
