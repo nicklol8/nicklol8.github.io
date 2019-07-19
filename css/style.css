@@ -149,4 +149,16 @@ ALL THIS IS FOR WHOS THAT POKEMON
   height: 600px;
   width: 600px;
   background: wheat;
+  /* display: flex; */
+}
+.guessArea {
+  height: 400px;
+  width: 400px;
+  background: radial-gradient(white, cyan);
+  border-radius: 50%;
+}
+.pokeSilhouette {
+  filter: contrast(0%) brightness(50%);
+  height: 250px;
+  width: 250px;
 }

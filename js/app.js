@@ -212,9 +212,52 @@ $(() => {
   //
   // For Who's that pokemon?
   //
+
   $('#btn-who').on('click', () => {
     $container.empty();
-    const $div = $('<div>').addClass('guessWho');
-    $container.append($div);
+    const $main = $('<div>').addClass('guessWho');
+    const $guessTitle = $('<h2>').text("WHO'S THAT POKEMON?");
+    const $start = $('<button>')
+      .text("LET'S PLAY")
+      .addClass('who-start')
+      .on('click', event => {
+        event.preventDefault();
+        $guessArea.empty();
+        const $randomGuess = Math.ceil(Math.random() * 151);
+        const endpointGuess = `https://pokeapi.co/api/v2/pokemon/${$randomGuess}`;
+        $.ajax({ url: endpointGuess }).then(handleDataWho);
+      });
+    const $formWho = $('<form>')
+      .addClass('poke-guess-who')
+      .on('submit', event => {
+        event.preventDefault();
+      });
+    const $input = $('<input>').attr('id', 'poke-guess');
+    const $guessButton = $('<button>')
+      .attr('id', 'guess-btn')
+      .text('GUESS');
+    const $guessArea = $('<div>').addClass('guessArea');
+    $container.append($main.append($guessTitle, $start, $guessArea));
+    $formWho.append($input, $guessButton);
+
+    const handleDataWho = dataWho => {
+      const $sprite = $('<img>')
+        .attr('src', dataWho.sprites.front_default)
+        .addClass('pokeSilhouette');
+      $main.append($formWho);
+      $('.guessArea').append($sprite);
+      $('#guess-btn').on('click', () => {
+        const $guess = $('#poke-guess')
+          .val()
+          .toLowerCase();
+        $('#poke-guess').val('');
+        if ($guess === dataWho.name) {
+          alert(`You got it! It's ${dataWho.name}`);
+          $sprite.css('filter', 'none');
+        } else {
+          alert('Not it! Try again?');
+        }
+      });
+    };
   });
 });
