@@ -56,10 +56,9 @@ $(() => {
     const $divTop = $('<div>').addClass('info-top');
     const $divImg = $('<div>').addClass('infoImage');
     const $divImgText = $('<div>').addClass('infoImageText');
-    const $divWideUnder = $('<div>').addClass('underneath');
     const $divBot = $('<div>').addClass('info-bot');
     const $divInfo = $('<div>').addClass('infoStats');
-    $divTop.append($circle, $divImg, $divImgText, $divWideUnder);
+    $divTop.append($circle, $divImg, $divImgText);
     $divBot.append($input, $btnSearch, $btnRandom, $divInfo);
     $form.append($divTop, $divBot);
     $div.append($form);
