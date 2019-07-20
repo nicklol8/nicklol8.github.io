@@ -7,6 +7,13 @@ body {
   background: #fbaf08;
   font-family: Helvetica, sans-serif;
 }
+#pokeball {
+  height: 800px;
+  background-image: url('pokeball.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding-bottom: 0;
+}
 #title {
   background-repeat: no-repeat;
   height: 150px;
@@ -160,25 +167,36 @@ ALL THIS IS FOR WHOS THAT POKEMON
 .guessWho {
   height: 600px;
   width: 600px;
-  background: wheat;
-  /* display: flex; */
 }
 .guessArea {
   height: 400px;
   width: 400px;
   background: radial-gradient(white, cyan);
   border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-wrap: wrap;
+}
+.underGuess {
+  height: 200px;
+  width: 400px;
+  margin: 0 auto;
+}
+.next-pokemon {
+  display: block;
+  margin: 0 auto;
 }
 .pokeSilhouette {
   filter: contrast(0%) brightness(50%);
   height: 250px;
   width: 250px;
+  margin: 0 auto;
 }
 @media (min-width: 800px) {
   .guessWho {
     height: 400px;
     width: 400px;
     background: none;
-    background-image: url('/images/who_blank.png');
   }
 }

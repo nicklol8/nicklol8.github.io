@@ -1,4 +1,3 @@
-// console.log('linked');
 $(() => {
   //
   // All for Pokedex
@@ -6,6 +5,7 @@ $(() => {
   const $container = $('#container');
   let currentImageIndex = 0;
   let highestIndex = 0;
+  let currentStreak = 0;
 
   // making the pokéinfo info display
   $('#btn-info').on('click', () => {
@@ -33,7 +33,6 @@ $(() => {
         $('#poke-search').val('');
         const endpoint = `https://pokeapi.co/api/v2/pokemon/${$pokemon}`;
         $.ajax({ url: endpoint }).then(handleDataInfo);
-        console.log($pokemon);
       });
 
     //random pokemon
@@ -47,7 +46,7 @@ $(() => {
         $divImgText.empty();
         $divInfo.empty();
         $('#poke-search').val('');
-        const $pokemon = Math.floor(Math.random() * 808);
+        const $pokemon = Math.ceil(Math.random() * 807);
         const endpoint = `https://pokeapi.co/api/v2/pokemon/${$pokemon}`;
         $.ajax({ url: endpoint }).then(handleDataInfo);
       });
@@ -74,9 +73,7 @@ $(() => {
             $sprite[currentImageIndex][0].replaceWith(
               $sprite[currentImageIndex + 1][0]
             );
-            // console.log($sprite[currentImageIndex + 1][1]);
             currentImageIndex++;
-            // console.log(currentImageIndex);
           } else {
             $('.infoImageText').text($sprite[0][1]);
             $sprite[currentImageIndex][0].replaceWith($sprite[0][0]);
@@ -92,7 +89,6 @@ $(() => {
               $sprite[currentImageIndex - 1][0]
             );
             currentImageIndex--;
-            console.log(currentImageIndex);
           } else {
             $('.infoImageText').text($sprite[highestIndex][1]);
             $sprite[currentImageIndex][0].replaceWith($sprite[highestIndex][0]);
@@ -160,11 +156,9 @@ $(() => {
                 .addClass('pokePic'),
               'Shiny Female Back'
             ]);
-            // console.log(images);
           }
         }
       }
-      console.log($sprite);
 
       highestIndex = $sprite.length - 1;
       $('.infoImage').append($btnPrev);
@@ -198,7 +192,6 @@ $(() => {
           }
         };
         const $flavorText = searchForFlavor('en', newData.flavor_text_entries);
-        // console.log($flavorText);
         const flavorText = $('<p>').text($flavorText.flavor_text);
         $('.infoStats').append(flavorText);
       };
@@ -211,52 +204,68 @@ $(() => {
   //
   // For Who's that pokemon?
   //
-
   $('#btn-who').on('click', () => {
-    $container.empty();
-    const $main = $('<div>').addClass('guessWho');
-    const $guessTitle = $('<h2>').text("WHO'S THAT POKEMON?");
-    const $start = $('<button>')
-      .text("LET'S PLAY")
-      .addClass('who-start')
-      .on('click', event => {
-        event.preventDefault();
-        $guessArea.empty();
-        const $randomGuess = Math.ceil(Math.random() * 151);
-        const endpointGuess = `https://pokeapi.co/api/v2/pokemon/${$randomGuess}`;
-        $.ajax({ url: endpointGuess }).then(handleDataWho);
-      });
-    const $formWho = $('<form>')
-      .addClass('poke-guess-who')
-      .on('submit', event => {
-        event.preventDefault();
-      });
-    const $input = $('<input>').attr('id', 'poke-guess');
-    const $guessButton = $('<button>')
-      .attr('id', 'guess-btn')
-      .text('GUESS');
-    const $guessArea = $('<div>').addClass('guessArea');
-    $container.append($main.append($guessTitle, $start, $guessArea));
-    $formWho.append($input, $guessButton);
+    //START NEW GAME
+    const startNewGame = () => {
+      $container.empty();
+      const $randomGuess = Math.ceil(Math.random() * 151);
+      const endpointGuess = `https://pokeapi.co/api/v2/pokemon/${$randomGuess}`;
+      $.ajax({ url: endpointGuess }).then(handleDataGuessWho);
+    };
 
-    const handleDataWho = dataWho => {
+    //GETTING THE DATA/BUILDING THE LOOKS
+    const handleDataGuessWho = dataGuess => {
+      const $main = $('<div>').addClass('guessWho');
+      const $guessTitle = $('<h2>').text("WHO'S THAT POKEMON?");
+      const $formWho = $('<form>')
+        .addClass('poke-guess-who')
+        .on('submit', event => {
+          event.preventDefault();
+        });
+      const $input = $('<input>').attr('id', 'poke-guess');
+      const $guessButton = $('<button>')
+        .attr('id', 'guess-btn')
+        .text('GUESS');
+      const $guessArea = $('<div>').addClass('guessArea');
+      const $underGuess = $('<div>').addClass('underGuess');
       const $sprite = $('<img>')
-        .attr('src', dataWho.sprites.front_default)
+        .attr('src', dataGuess.sprites.front_default)
         .addClass('pokeSilhouette');
-      $main.append($formWho);
+      $container.append($main.append($guessTitle, $guessArea, $underGuess));
+      $formWho.append($input, $guessButton);
+      $underGuess.append($formWho);
       $('.guessArea').append($sprite);
-      $('#guess-btn').on('click', () => {
+      $('#guess-btn').on('click', event => {
+        event.preventDefault();
         const $guess = $('#poke-guess')
           .val()
           .toLowerCase();
-        $('#poke-guess').val('');
-        if ($guess === dataWho.name) {
-          alert(`You got it! It's ${dataWho.name}`);
+        if ($guess === dataGuess.name) {
+          $('#poke-guess').val('');
+          alert(`You got it! It's ${dataGuess.name}`);
           $sprite.css('filter', 'none');
+          $formWho.children().remove();
+          const nextPokemon = $('<button>')
+            .addClass('next-pokemon')
+            .text('Try another?')
+            .on('click', startNewGame);
+          currentStreak++;
+          const $currentStreak = $('<div>').text(
+            `Current streak: ${currentStreak}`
+          );
+          $underGuess.append($currentStreak, nextPokemon);
         } else {
           alert('Not it! Try again?');
+          currentStreak = 0;
         }
       });
     };
+    //STARTING
+    $container.empty();
+    const $startButton = $('<button>')
+      .text('Start New Game')
+      .attr('id', 'startGuessWho')
+      .on('click', startNewGame);
+    $container.append($startButton);
   });
 });
