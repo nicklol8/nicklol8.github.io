@@ -45,6 +45,7 @@ body {
   align-content: space-around;
   background: #dd0b2d;
   border-radius: 20px;
+  border: 2px solid black;
 }
 .pokedex-camera {
   height: 30px;
@@ -98,8 +99,9 @@ body {
 .infoStats {
   height: 200px;
   width: 300px;
-  background: green;
-  border: 20px solid green;
+  background: rgb(49, 167, 49);
+  border: 10px solid green;
+  padding: 5px;
 }
 @media (min-width: 800px) {
   #nav {
@@ -133,6 +135,7 @@ body {
     border-left: 10px solid darkred;
   }
   .infoImage {
+    margin-top: 30px;
     height: 400px;
   }
   .btn-info {
@@ -147,8 +150,7 @@ body {
   .infoStats {
     height: 300px;
     width: 300px;
-    background: green;
-    border: 20px solid green;
+    margin-top: 10px;
   }
   .pokedex-camera {
     height: 30px;
@@ -167,6 +169,13 @@ ALL THIS IS FOR WHOS THAT POKEMON
 .guessWho {
   height: 600px;
   width: 600px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(220, 220, 200, 0.7);
+  border-radius: 5%;
 }
 .guessArea {
   height: 400px;
@@ -193,10 +202,10 @@ ALL THIS IS FOR WHOS THAT POKEMON
   width: 250px;
   margin: 0 auto;
 }
-@media (min-width: 800px) {
+/* @media (min-width: 800px) {
   .guessWho {
     height: 400px;
     width: 400px;
     background: none;
   }
-}
+} */

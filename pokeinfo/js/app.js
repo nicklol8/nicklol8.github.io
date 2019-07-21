@@ -216,6 +216,7 @@ $(() => {
     //GETTING THE DATA/BUILDING THE LOOKS
     const handleDataGuessWho = dataGuess => {
       const $main = $('<div>').addClass('guessWho');
+      // $main.css('background', 'rgba(200,200,200,0.9');
       const $guessTitle = $('<h2>').text("WHO'S THAT POKEMON?");
       const $formWho = $('<form>')
         .addClass('poke-guess-who')
@@ -233,8 +234,8 @@ $(() => {
         .addClass('pokeSilhouette');
       $container.append($main.append($guessTitle, $guessArea, $underGuess));
       $formWho.append($input, $guessButton);
-      $underGuess.append($formWho);
       $('.guessArea').append($sprite);
+      $guessArea.append($formWho);
       $('#guess-btn').on('click', event => {
         event.preventDefault();
         const $guess = $('#poke-guess')
