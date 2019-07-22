@@ -20,6 +20,6 @@ The second stretch goal was to make a Poké-tic-tac-toe. While that is currently
 
 ### Unsolved Issues
 
-The biggest issue is that in the "Who's that Pokémon" game, when getting the answer correct and moving to the next one, it still repeats the first guess, and then submits the second guess. 
+Most issues that arose were able to be solved, with a few bugs that happen if pressing buttons before the data from the API loads.
 Another small issue is that if the user doesn't spell the name correctly, nothing will display in the Pokédex. While it doesn't break anything, being able to match closely spelled names would be a nice feature (eg. User inputs: ninetails, actual name is Ninetales).
 
