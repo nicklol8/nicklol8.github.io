@@ -10,7 +10,7 @@ body {
 #pokeball {
   height: 800px;
   background-image: url('pokeball.png');
-  background-size: cover;
+  background-size: contain;
   background-repeat: no-repeat;
   padding-bottom: 0;
 }
@@ -104,6 +104,13 @@ body {
   padding: 5px;
 }
 @media (min-width: 800px) {
+  #pokeball {
+    height: 800px;
+    background-image: url('pokeball.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding-bottom: 0;
+  }
   #nav {
     height: 150px;
     width: 800px;
@@ -202,10 +209,3 @@ ALL THIS IS FOR WHOS THAT POKEMON
   width: 250px;
   margin: 0 auto;
 }
-/* @media (min-width: 800px) {
-  .guessWho {
-    height: 400px;
-    width: 400px;
-    background: none;
-  }
-} */
