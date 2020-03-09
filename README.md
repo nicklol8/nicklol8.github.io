@@ -3,7 +3,7 @@
 Pokéstop was made using Javascript, JQuery, HTML, and CSS. The PokéAPI v2 (https://pokeapi.co/) was used to fill in data for the pokemon, most often using their database of names, ID's, sprites, and additional descriptive text. The Pokédex feature was the first one added, followed by the Who's that Pokémon guessing game.
 
 ## Link to Live Site
-https://nicklol8.github.io/pokeinfo/
+https://nortiz8.github.io/pokeinfo/
 ![Pokédex](https://i.imgur.com/jOu6WBg.png "pokedex")
 
 ### Approach
